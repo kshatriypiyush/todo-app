@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>{{ title }}</h1>
+
+  <div class="card">
+    <h3>Add Task</h3>
+    <div class="form">
+      <input [(ngModel)]="newTask.title" placeholder="Title" />
+      <input [(ngModel)]="newTask.description" placeholder="Description" />
+      <input [(ngModel)]="newTask.dueDate" type="date" />
+      <button (click)="add()">Add</button>
+    </div>
+  </div>
+
+  <div *ngIf="loading">Loading…</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <ul class="list">
+    <li *ngFor="let t of tasks" [@fade]>
+      <input type="checkbox" [checked]="t.completed" (change)="toggleCompleted(t)" />
+      <span [style.text-decoration]="t.completed ? 'line-through' : 'none'">
+      <strong>{{ t.title }}</strong>
+      <small *ngIf="t.dueDate"> — due {{ t.dueDate }}</small>
+      <div *ngIf="t.description">{{ t.description }}</div>
+    </span>
+      <button (click)="delete(t)">Delete</button>
+    </li>
+  </ul>
+</div>
